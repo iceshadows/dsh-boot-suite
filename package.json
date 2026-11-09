@@ -1,0 +1,105 @@
+{
+  "name": "dsh-boot-suite",
+  "version": "3.0.0",
+  "description": "DSH 开机动画 + 聊天壁纸 + 真实身份验证三合一：两幕启动动画（默认档案暖白 + 鲸鱼娘扫描睁眼，2K/4K 可切）、导入视频/图片与三段转场、11→6 套配音音色与 5 种声音效果、聊天背景/循环视频；内置认证网关（登录保护全部 HTTP/WS 接口、用户管理、邀请码注册、TOTP 两步验证、通行密钥/Passkey 登录）与更新前自动回滚。",
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "deepseek-harness-desktop",
+    "startup",
+    "splash",
+    "boot-animation",
+    "wallpaper",
+    "background",
+    "intro",
+    "video",
+    "auth",
+    "authentication",
+    "login",
+    "passkey",
+    "webauthn",
+    "two-factor",
+    "totp"
+  ],
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "templates",
+    "tools",
+    "test",
+    "preview/index.html",
+    "open-preview.sh",
+    "打开预览.cmd",
+    "安装.cmd",
+    "卸载.cmd",
+    "诊断.cmd",
+    "安装-在线.ps1",
+    "install-online.ps1",
+    "cordis.patch.yml",
+    "README.md",
+    "README.en.md",
+    "INSTALL.md",
+    "CHANGELOG.md",
+    "AUTH.md",
+    "DESKTOP.md",
+    "AUDIO-FIELDS.md",
+    "CREDITS.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node test/smoke-security.mjs && node test/smoke-update-dryrun.mjs && node test/smoke-host.mjs && node test/smoke-splash.mjs && node test/smoke-splash-tl.mjs && node test/smoke-client.mjs && node test/smoke-desktop-boot.mjs && node test/smoke-import.mjs && node test/smoke-wallpaper-host.mjs && node test/smoke-wallpaper-client.mjs && node test/smoke-wallpaper-apply.mjs && node test/smoke-wallpaper-panel.mjs && node test/smoke-merge.mjs && node test/smoke-coords.mjs && node test/smoke-package.mjs && node test/smoke-auth-host.mjs && node test/smoke-auth-client.mjs && node test/smoke-auth-merge.mjs",
+    "motion:check": "node tools/motion-check.mjs --template=deep-sonar --speed=2",
+    "ui:detect": "npx --yes impeccable@4.8.0 detect --no-config tools/editor.html preview/index.html",
+    "release": "node tools/build-release.mjs"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": "^22.19.0 || >=24.0.0"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-settings"
+      ],
+      "platform": "web"
+    },
+    "compatibility": {
+      "dsh": ">=0.2.0-rc.2 <0.3.0",
+      "dshReleases": {
+        "0.2.0-rc.2": "compatible",
+        "0.2.0-rc.1": "compatible"
+      },
+      "profiles": [
+        "web"
+      ]
+    }
+  },
+  "dependencies": {
+    "@simplewebauthn/server": "^14.0.2",
+    "qrcode": "^1.5.4",
+    "ws": "^8.21.0"
+  },
+  "author": "沈宏宏 · LeeRolling（认证半侧：0QwQ0 / dsh-ui-auth）",
+  "contributors": [
+    "沈宏宏 · LeeRolling",
+    "0QwQ0 (dsh-ui-auth)"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LeeRolling/dsh-boot-suite.git"
+  },
+  "homepage": "https://github.com/LeeRolling/dsh-boot-suite#readme",
+  "bugs": {
+    "url": "https://github.com/LeeRolling/dsh-boot-suite/issues"
+  }
+}

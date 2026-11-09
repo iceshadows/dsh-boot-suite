@@ -1,0 +1,11 @@
+{
+  "id": "dsh-boot-suite",
+  "name": "开机动画 + 聊天壁纸 + 身份验证",
+  "nameEn": "Boot Suite with Authentication",
+  "author": "LeeRolling",
+  "description": "给 DSH 加开机动画、聊天壁纸与真实身份验证：分幕模板引擎（1–24 幕）、自带配色/文案/配音、网页版编辑器、模板商店；内置登录闸门（用户管理、邀请码、TOTP 两步验证、通行密钥/Passkey），未登录不可访问任何页面与接口。",
+  "descriptionEn": "Boot animation, chat wallpaper and real authentication for DSH: a data-driven 1–24 act template engine, a visual editor and a template store, plus a built-in auth gateway (users, invites, TOTP, passkey) that protects every page and endpoint behind a login.",
+  "repo": "https://github.com/LeeRolling/dsh-boot-suite",
+  "category": "ui",
+  "subcategory": "render"
+}

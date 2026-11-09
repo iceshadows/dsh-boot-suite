@@ -1,0 +1,11 @@
+# dsh-boot-suite — DSH bundle patch（开机动画 + 聊天壁纸 + 身份认证）
+#
+# 合并插件只需要一条 insert：宿主半侧由本包 lib/index.js 统一 apply
+# （依次拉起聊天壁纸、开机动画，最后安装认证闸门），浏览器半侧由 package.json
+# 的 dsh.client 声明、宿主自动组装（三段 IIFE 合并成一个模块 id）。
+#
+# 安装（不手改 profile patch）：
+#   dsh plugin --profile desktop add link:F:\Lee的GitHub仓库\DeepSeek harness 开机动画\01-源码
+- insert:
+    - id: dsh-boot-suite
+      name: dsh-boot-suite
