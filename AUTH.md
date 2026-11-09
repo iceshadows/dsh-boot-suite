@@ -74,8 +74,9 @@
 
 ## 6. 与独立版 dsh-ui-auth 的关系
 
-- **不要同时安装** `dsh-ui-auth` 与新版 `dsh-boot-suite`：两层闸门会互相套、`/auth` 路由还会撞名。
-  升级到 3.0.0 前先 `dsh plugin remove dsh-ui-auth`。
+- **不要同时安装** `dsh-ui-auth` 与新版 `dsh-boot-suite`：两层闸门会互相套、`/auth` 路由还会撞名，
+  典型症状是「输入密码后又被弹回登录页」。升级到 3.0.0 前先 `dsh plugin remove dsh-ui-auth`。
+  万一忘了卸，3.0.0 起会直接 fail-closed（整站 503 并在日志里点名 `dsh-ui-auth`），不会再静默死循环。
 - 认证的宿主文件原样放在 `lib/auth/`（源码零改写），浏览器半侧内嵌进 `lib/client.js` 的第三段 IIFE。
 - 独立版的 npm 依赖（`@simplewebauthn/server`、`ws`、`qrcode`）已声明在 `package.json`，
   并使用 `link:` 方式安装时也随 `dsh-boot-suite-win.zip` 一并分发 `node_modules`，离线可用。

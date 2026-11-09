@@ -4,6 +4,8 @@
 - 启动顺序固定为「壁纸 → 开机动画 → 认证」：认证最后 apply，才能把已有的 request/upgrade 监听器套进闸门；`/dsh-startup/*`、`/chat-wallpaper/*` 全部受登录保护。
 - 首次启动自动创建 `admin`，随机口令输出到控制台与 `dsh-ui-auth-bootstrap.txt`；改密后自动删除引导文件。认证半侧启动失败时 **fail-closed**（整站 503），不暴露未登录界面。
 - 依赖随包分发：`@simplewebauthn/server` / `ws` / `qrcode` 写入 `package.json`，Windows 发行包内含 `node_modules`，`link:` 与离线安装可直接运行；`engines.node` 提升到 `^22.19.0 || >=24.0.0`。
+- 认证半侧启动失败改为**彻底 fail-closed**：先摘掉 server 上已有的 request/upgrade 监听器再挂唯一的 503（以前只追加监听器，遇到「同时还装着独立 dsh-ui-auth、`/auth` 路由重名」时会被半套闸门抢先处理，表现为登录成功后又被弹回登录页的死循环）；日志里会直接提示先卸载 `dsh-ui-auth`。
+- 新增 `test/smoke-auth-duplicate.mjs`：模拟重复安装，断言失败后是 503 而不是登录循环。
 - 新增 `AUTH.md`（能力、启动顺序、首次登录、救援、环境变量、与独立版的关系）。
 - 新增测试：`smoke-auth-host`（认证宿主 98 项）、`smoke-auth-client`（合并客户端：单次注册 + 三段 IIFE + 认证设置页）、`smoke-auth-merge`（三段同时挂载、未登录全站拦截、登录后开机动画路由照常）；`smoke-package` 增加认证文件/依赖断言；CI 矩阵改为 Node 22 / 24 并先装依赖。
 - **升级注意**：之前单独装过 `dsh-ui-auth` 的，先 `dsh plugin remove dsh-ui-auth` 再装本版，否则两层闸门互相套、`/auth` 路由撞名。
